@@ -19,22 +19,15 @@ def word_counter(text):
     return len(split_up)
 
 def character_counter(text):
-    lowercase_text = str.lower(text)
-    all_characters = []
-
-    for i in lowercase_text:
-        all_characters.append(i)
-
-    all_characters = set(all_characters)
+    lowercase = str.lower(text)
 
     character_dictionary = {}
 
-    for i in all_characters:
-        character_dictionary[i] = 0
-
-    for i in lowercase_text:
-        if i in character_dictionary:
-            character_dictionary[i] += 1
+    for l in lowercase:
+        if l in character_dictionary:
+            character_dictionary[l] += 1
+        else:
+            character_dictionary[l] = 1
 
     return character_dictionary
 
