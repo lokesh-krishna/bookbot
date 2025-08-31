@@ -1,34 +1,24 @@
+import sys
+from stats import get_word_count
+from stats import get_character_count
+from stats import sorted_character_count
+
+
 def main():
-    book_path = "books/frankenstein.txt"
-    text = get_book_text(book_path)
-    word_count = word_counter(text)
-    character_dictionary = character_counter(text)
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        return sys.exit(1)
+    else:
+        num_words = get_word_count(sys.argv[1])
+        characters = get_character_count(sys.argv[1])
+        sorted_list = sorted_character_count(characters)
+        print("============ BOOKBOT ============")
+        print(f"Analyzing book found at {sys.argv[1]}...")
+        print("----------- Word Count ----------")
+        print(f"Found {num_words} total words")
+        print("--------- Character Count -------")
+        for item in sorted_list:
+            print(f"{item["char"]}: {item["num"]}")
 
-    print(f"--- Begin report of {book_path} ---")
-    print(f"{word_count} words were found in the document")
-
-    for i in character_dictionary:
-        print(f"The {i} character was found {character_dictionary[i]} times")
-
-def get_book_text(path):
-    with open(path) as f:
-        return f.read()
-
-def word_counter(text):
-    split_up = str.split(text)
-    return len(split_up)
-
-def character_counter(text):
-    lowercase = str.lower(text)
-
-    character_dictionary = {}
-
-    for l in lowercase:
-        if l in character_dictionary:
-            character_dictionary[l] += 1
-        else:
-            character_dictionary[l] = 1
-
-    return character_dictionary
 
 main()
